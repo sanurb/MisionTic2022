@@ -5,7 +5,7 @@ import matplotlib.style as mplstyle
 import pandas as pd
 
 
-def leer_archivos(punto_distribucion: int) -> list[int]:
+def leer_archivos(punto_distribucion):
     """
     Esta funcion lee y almacena los datos para cada uno de los archivos,
     recorriendo cada fila y guardandolos en una nueva matriz.
@@ -37,8 +37,8 @@ def leer_archivos(punto_distribucion: int) -> list[int]:
 
 
 def validar_punto_distribucion(
-        punto_distribucion: int,
-        tabla_asignados: list[int]) -> str:
+        punto_distribucion,
+        tabla_asignados):
     """ Verifica si el punto de distribucion está dentro del rango de
     valores registrados.
 
@@ -56,8 +56,8 @@ def validar_punto_distribucion(
 
 
 def contar_entregas_a_tiempo(
-        tabla_asignados: list[int],
-        tabla_registrados: list[int]) -> int:
+        tabla_asignados,
+        tabla_registrados):
     """Esta funcion realiza el conteo de cajas entragadas a tiempo.
 
     Args:
@@ -78,7 +78,7 @@ def contar_entregas_a_tiempo(
 def control(
         punto_distribucion,
         tabla_asignados,
-        tabla_registrados) -> list[int]:
+        tabla_registrados):
     """Realiza los calculos para el punto de distribucion digitado,
     y también registra los indicadores para todos los puntos de distribucion.
 
