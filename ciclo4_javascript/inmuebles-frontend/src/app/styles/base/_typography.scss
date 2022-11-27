@@ -1,0 +1,30 @@
+.adaptive-font{
+  text-align:center;
+
+  &--small{
+    font-size: var(--font-size-small);
+    line-height: 120%;
+  }
+
+  &--normal{
+    font-size: var(--font-size-normal);
+  }
+
+  &--medium{
+      font-size: var(--font-size-medium);
+      line-height: 140%;
+  }
+
+  &--large{
+      font-size: var(--font-size-large);
+  }
+
+  &--xl{
+    font-size: var(--font-size-xl);
+}
+}
+
+.uppercase-text{
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

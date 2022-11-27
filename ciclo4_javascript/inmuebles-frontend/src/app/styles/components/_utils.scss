@@ -1,0 +1,38 @@
+.place-items-center{
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.d-grid{
+  display:grid;
+}
+
+.align-right{
+  margin-left: auto;
+}
+
+.text-center{
+  text-align: center !important;
+}
+
+.bounce {
+  outline: 0;
+  border-color: red !important;
+  animation-name: bounce;
+  animation-duration: .5s;
+  animation-delay: 0.25s;
+}
+
+.floating-background-img{
+  height: 28.125rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+  & img{
+    height: 100%;
+    object-fit: cover;
+  }
+}
