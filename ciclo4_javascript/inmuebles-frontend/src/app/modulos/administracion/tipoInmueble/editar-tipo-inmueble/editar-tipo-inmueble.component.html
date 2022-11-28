@@ -1,1 +1,27 @@
-<p>editar-tipo-inmueble works!</p>
+<section class="editar-tipo-inmueble-wrapper">
+
+  <form class="inmueble-form" [formGroup]="EditarTipoInmuebleForm" (ngSubmit)="EditarRegistro()">
+
+    <app-input
+      [parentForm]="EditarTipoInmuebleForm"
+      fieldName="tipo_inmueble"
+      label="Cambiar el nombre del inmueble"
+      formControlName="tipo_inmueble"
+      [isRequired]="true"
+      class="col"
+    >
+    </app-input>
+
+    <div class="btn-group">
+      <button type="submit" [disabled]="EditarTipoInmuebleForm.invalid" class="btn btn--small btn--success btn-register">
+        <p>Guardar</p>
+      </button>
+
+      <button routerLink="/listar-tipo-inmueble" type="button" class="btn btn--small btn--danger btn--cancelar">
+        <p>Cancelar</p>
+      </button>
+    </div>
+
+
+  </form>
+</section>

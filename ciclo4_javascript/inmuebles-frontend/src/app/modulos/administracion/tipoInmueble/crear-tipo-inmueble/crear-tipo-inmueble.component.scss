@@ -1,0 +1,13 @@
+.crear-tipo-inmueble-wrapper {
+  display: flex;
+  min-height: 600px;
+  height: auto;
+
+  &-container{
+    margin: auto;
+
+    .btn--cancelar{
+      margin-left: 10px;
+    }
+  }
+}

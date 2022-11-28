@@ -12,10 +12,10 @@
       <div class="nav__menu-divider"></div>
       <ul class="nav__list">
         <li class="nav__list-item">
-          <a href="#" class="nav__list-link">Tipo de Inmueble</a>
+          <a routerLink="listar-tipo-inmueble" class="nav__list-link">Tipo de Inmueble</a>
         </li>
         <li class="nav__list-item">
-          <a href="#" class="nav__list-link">Inmueble</a>
+          <a routerLink="listar-inmueble" class="nav__list-link">Inmueble</a>
         </li>
       </ul>
       <button (click)="menuToggleOpen=!menuToggleOpen" class="btn btn--action btn--close">
@@ -27,7 +27,7 @@
         </svg>
       </button>
       <div class="nav__menu-footer">
-        <a href="#" class="btn btn--acction btn--small btn--brand">
+        <a href="#" class="btn btn--acction btn--small btn--brand" style="display: flex;">
           <svg width="24" height="24" viewBox="0 0 24 24" class="btn__icon">
             <g fill="currentColor">
               <path d="M17.707 10.708L16.293 9.29398L13 12.587V2.00098H11V12.587L7.70697 9.29398L6.29297 10.708L12 16.415L17.707 10.708Z"></path>
@@ -37,13 +37,13 @@
       </div>
     </div>
 
-    <!-- <div class="nav__btn-group">
-      <a class="btn btn--small btn--light">Crear</a>
+    <div class="nav__btn-group">
+      <!-- <a class="btn btn--small btn--light">Crear</a> -->
       <button (click)="menuToggleOpen=!menuToggleOpen" class="btn btn--action btn--open">
         <svg width="40" height="40" viewBox="0 0 40 40">
           <path fill="#fff" fill-rule="evenodd" clip-rule="evenodd" d="M33.3327 10H6.66602V15H33.3327V10ZM6.66602 18.3317H33.3327V23.3317H6.66602V18.3317ZM6.66602 26.665H33.3327V31.665H6.66602V26.665Z"></path>
         </svg>
       </button>
-    </div> -->
+    </div>
   </nav>
 </header>

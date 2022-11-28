@@ -72,6 +72,15 @@
     }
   }
 
+  &--danger{
+    background-color: #dc3545;
+    color: var(--light-color);
+
+    &:hover{
+        background-color: #c82333;
+    }
+  }
+
   &--transparent{
     background-color: transparent;
     color: #6a6a6a;

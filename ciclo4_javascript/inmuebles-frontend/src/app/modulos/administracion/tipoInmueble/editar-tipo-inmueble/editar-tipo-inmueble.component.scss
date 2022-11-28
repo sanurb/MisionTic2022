@@ -1,0 +1,15 @@
+.editar-tipo-inmueble-wrapper{
+  display: flex;
+  min-height: 600px;
+  height: auto;
+
+  .inmueble-form{
+    margin: auto;
+
+    .btn--small:nth-child(1) {
+      margin-right: .5rem;
+    }
+  }
+
+}
+

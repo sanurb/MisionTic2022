@@ -10,6 +10,8 @@ import { ListarInmuebleComponent } from './inmueble/listar-inmueble/listar-inmue
 import { CrearInmuebleComponent } from './inmueble/crear-inmueble/crear-inmueble.component';
 import { EditarInmuebleComponent } from './inmueble/editar-inmueble/editar-inmueble.component';
 import { EliminarInmuebleComponent } from './inmueble/eliminar-inmueble/eliminar-inmueble.component';
+import { SharedModule } from '@shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { EliminarInmuebleComponent } from './inmueble/eliminar-inmueble/eliminar
   ],
   imports: [
     CommonModule,
-    AdministracionRoutingModule
+    AdministracionRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
   ]
 })
 export class AdministracionModule { }

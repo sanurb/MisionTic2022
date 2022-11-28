@@ -1,1 +1,14 @@
-<p>eliminar-tipo-inmueble works!</p>
+<section class="eliminar-wrapper d-flex">
+  <div class="container-fluid m-auto">
+
+    <input type="hidden" formControlName="id" />
+    <div class="adaptive-font adaptive-font--large">
+      ¿Confirma la eliminación del registro? {{ nombre }}
+    </div>
+    <div class="btn-group justify-content-center">
+      <button class="btn btn--small btn--danger me-2" (click)="EliminarRegistro()">Si, deseo borrar</button>
+      <button class="btn btn--small btn--success" routerLink="/listar-tipo-inmueble">Cancelar</button>
+    </div>
+
+  </div>
+</section>

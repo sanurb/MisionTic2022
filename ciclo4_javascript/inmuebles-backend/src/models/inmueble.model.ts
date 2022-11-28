@@ -7,6 +7,7 @@ export class Inmueble extends Entity {
     type: 'string',
     id: true,
     generated: true,
+    mongodb: {dataType: 'ObjectId'}
   })
   _id?: string;
 
