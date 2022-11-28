@@ -5,6 +5,7 @@ import { InmuebleService } from '@modulos/administracion/servicios/inmueble.serv
 import { TipoInmuebleService } from '@modulos/administracion/servicios/tipo-inmueble.service';
 import { InmuebleModel } from 'src/app/modelos/Inmueble.model';
 import { TipoInmuebleModel } from 'src/app/modelos/tipo-inmueble.model';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-crear-inmueble',
@@ -25,7 +26,8 @@ export class CrearInmuebleComponent implements OnInit {
   constructor(
     private router: Router,
     private servicioInmueble: InmuebleService,
-    private servicioTipoInmueble: TipoInmuebleService
+    private servicioTipoInmueble: TipoInmuebleService,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class CrearInmuebleComponent implements OnInit {
         this.opcionesTipoInmueble = data;
       },
       error: (err) => {
-        alert('Error cargando la información.');
+        this.toast.error('Error cargando la información.');
       },
     });
   }
@@ -53,10 +55,10 @@ export class CrearInmuebleComponent implements OnInit {
       this.servicioInmueble.GuardarRegistro(modelo).subscribe({
         next: (data) => {
           this.router.navigate(['/listar-inmueble']);
-          alert('Almacenado correctamente.');
+          this.toast.success('Inmueble creado correctamente!')
         },
         error: (err) => {
-          alert('Error almacenando la información.');
+          this.toast.error('Error almacenando la información.');
         },
       });
     }

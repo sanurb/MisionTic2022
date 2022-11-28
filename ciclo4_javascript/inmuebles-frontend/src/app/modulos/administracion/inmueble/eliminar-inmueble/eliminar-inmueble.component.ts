@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InmuebleService } from '@modulos/administracion/servicios/inmueble.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-eliminar-inmueble',
@@ -16,7 +17,8 @@ export class EliminarInmuebleComponent implements OnInit {
   constructor(
     private servicioInmueble: InmuebleService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toast: HotToastService,
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class EliminarInmuebleComponent implements OnInit {
         this.telefono = data.telefono;
       },
       error: (err) => {
-        alert('Error buscando la información.');
+        this.toast.error('Error buscando la información.');
       },
     });
   }
@@ -41,10 +43,10 @@ export class EliminarInmuebleComponent implements OnInit {
     this.servicioInmueble.EliminarRegistro(this.idPorEliminar).subscribe({
       next: (data) => {
         this.router.navigate(['/listar-inmueble']);
-        alert('Eliminado correctamente.');
+        this.toast.success('Eliminado correctamente.');
       },
       error: (err) => {
-        alert('Error editando la información.');
+        this.toast.error('Error editando la información.');
       },
     });
   }

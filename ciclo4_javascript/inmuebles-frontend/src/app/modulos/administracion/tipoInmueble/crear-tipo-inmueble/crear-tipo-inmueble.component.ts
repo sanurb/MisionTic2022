@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TipoInmuebleService } from '@modulos/administracion/servicios/tipo-inmueble.service';
+import { HotToastService } from '@ngneat/hot-toast';
+
 
 @Component({
   selector: 'app-crear-tipo-inmueble',
@@ -16,7 +18,8 @@ export class CrearTipoInmuebleComponent implements OnInit {
 
   constructor(
     private servicioTipoInmueble: TipoInmuebleService,
-    private router: Router
+    private router: Router,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {}
@@ -29,10 +32,10 @@ export class CrearTipoInmuebleComponent implements OnInit {
       this.servicioTipoInmueble.GuardarRegistro(nombre).subscribe({
         next: (data) => {
           this.router.navigate(['/listar-tipo-inmueble']);
-          alert('Almacenado correctamente.');
+          this.toast.success('Almacenado correctamente!');
         },
         error: (err) => {
-          alert('Error almacenando la información.');
+          this.toast.error('Error almacenando la información.');
         },
       });
     }
