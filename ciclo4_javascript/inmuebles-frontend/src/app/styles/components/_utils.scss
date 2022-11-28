@@ -28,3 +28,16 @@
     object-fit: cover;
   }
 }
+
+.is-required{
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark-color);
+  font-weight: 600;
+  font-size: 0.875rem;
+
+  &:after{
+    content: " *";
+    color: #e32;
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TipoInmuebleModel } from 'src/app/modelos/tipo-inmueble.model';
-import { TipoInmuebleService } from 'src/app/servicios/tipo-inmueble.service';
+import { TipoInmuebleService } from '@modulos/administracion/servicios/tipo-inmueble.service';
 
 @Component({
   selector: 'app-listar-tipo-inmueble',

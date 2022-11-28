@@ -1,1 +1,65 @@
-<p>editar-inmueble works!</p>
+<div class="editar-inmueble-wrapper inmueble-wrapper d-flex">
+  <div class="editar-inmueble-wrapper-container m-auto">
+    <form
+      class="inmueble-form"
+      [formGroup]="inmuebleEditForm"
+      (ngSubmit)="EditarRegistro()"
+    >
+      <app-input
+        [parentForm]="inmuebleEditForm"
+        fieldName="propietario"
+        label="¿Cuál es nombre del propietario del inmueble?"
+        formControlName="propietario"
+        placeholder="Nombre del propietario del inmueble"
+        [isRequired]="true"
+        class="col"
+      >
+      </app-input>
+
+      <app-input
+        [parentForm]="inmuebleEditForm"
+        fieldName="telefono"
+        label="Telefono"
+        formControlName="telefono"
+        placeholder="Telefono"
+        [isRequired]="true"
+        class="col"
+      >
+      </app-input>
+
+      <app-input
+        [parentForm]="inmuebleEditForm"
+        fieldName="direccion"
+        label="Direccion"
+        formControlName="direccion"
+        placeholder="Direccion"
+        [isRequired]="true"
+        class="col"
+      >
+      </app-input>
+
+      <label class="is-required">Tipo de Inmueble</label>
+      <select formControlName="tipoId" class="form-select mb-4">
+        <option *ngFor="let o of opcionesTipoInmueble" value="{{ o._id }}">
+          {{ o.nombre }}
+        </option>
+      </select>
+
+      <button
+        type="submit"
+        [disabled]="inmuebleEditForm.invalid"
+        class="btn btn--small btn--success me-4"
+      >
+        <p>Guardar</p>
+      </button>
+
+      <button
+        routerLink="/listar-inmueble"
+        type="button"
+        class="btn btn--small btn--danger"
+      >
+        <p>Cancelar</p>
+      </button>
+    </form>
+  </div>
+</div>

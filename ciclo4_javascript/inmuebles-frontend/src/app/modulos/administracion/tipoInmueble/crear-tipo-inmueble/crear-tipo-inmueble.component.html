@@ -1,26 +1,25 @@
-<div class="crear-tipo-inmueble-wrapper">
+<div class="inmueble-wrapper">
 
-  <div class="crear-tipo-inmueble-wrapper-container">
-    <form class="inmueble-form" [formGroup]="inmuebleForm" (ngSubmit)="submit()">
+  <form class="inmueble-form" [formGroup]="inmuebleForm" (ngSubmit)="submit()">
 
-      <app-input
-        [parentForm]="inmuebleForm"
-        fieldName="tipo_inmueble"
-        label="¿Cuál es nombre del tipo del inmueble?"
-        formControlName="tipo_inmueble"
-        placeholder="Pon tu nombre del inmueble."
-        [isRequired]=true
-        class="col">
-      </app-input>
+    <app-input
+      [parentForm]="inmuebleForm"
+      fieldName="tipo_inmueble"
+      label="¿Cuál es nombre del tipo del inmueble?"
+      formControlName="tipo_inmueble"
+      placeholder="Pon tu nombre del inmueble."
+      [isRequired]=true
+      class="col">
+    </app-input>
 
-      <button type="submit" [disabled]="inmuebleForm.invalid" class="btn btn--small btn--success btn-register">
-        <p>Guardar</p>
-      </button>
+    <button type="submit" [disabled]="inmuebleForm.invalid" class="btn btn--small btn--success me-4">
+      <p>Guardar</p>
+    </button>
 
-      <button routerLink="/listar-tipo-inmueble" type="button" class="btn btn--small btn--danger btn--cancelar">
-        <p>Cancelar</p>
-      </button>
+    <button routerLink="/listar-tipo-inmueble" type="button" class="btn btn--small btn--danger">
+      <p>Cancelar</p>
+    </button>
 
-    </form>
-  </div>
+  </form>
+
 </div>

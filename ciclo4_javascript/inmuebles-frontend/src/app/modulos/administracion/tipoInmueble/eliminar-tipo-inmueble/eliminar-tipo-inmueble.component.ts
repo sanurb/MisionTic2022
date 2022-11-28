@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TipoInmuebleService } from 'src/app/servicios/tipo-inmueble.service';
+import { TipoInmuebleService } from '@modulos/administracion/servicios/tipo-inmueble.service';
 
 @Component({
   selector: 'app-eliminar-tipo-inmueble',

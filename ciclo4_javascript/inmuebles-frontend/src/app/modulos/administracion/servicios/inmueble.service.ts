@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InmuebleModel } from '../modelos/Inmueble.model';
+import { InmuebleModel } from '../../../modelos/Inmueble.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -44,7 +44,22 @@ export class InmuebleService {
   }
 
   /**
-   * ELimina un registro de la base de datos
+   * Edita un registro de la base de datos
+   * @param id id del registro
+   * @param nombre nuevo nombre
+   * @returns Observable vacío
+   */
+  EditarRegistro(registro: InmuebleModel): Observable<any> {
+    return this.http.put<any>(this.url + '/' + registro._id, {
+      propietario: registro.propietario,
+      direccion: registro.direccion,
+      telefono: registro.telefono,
+      tipoInmuebleId: registro.tipoInmuebleId,
+    });
+  }
+
+  /**
+   * Elimina un registro de la base de datos
    * @param id id del registro a eliminar
    * @returns NA
    */

@@ -1,9 +1,9 @@
-.crear-tipo-inmueble-wrapper {
+.inmueble-wrapper{
   display: flex;
   min-height: 600px;
   height: auto;
 
-  &-container{
+  * {
     margin: auto;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TipoInmuebleService } from 'src/app/servicios/tipo-inmueble.service';
+import { TipoInmuebleService } from '@modulos/administracion/servicios/tipo-inmueble.service';
 
 @Component({
   selector: 'app-editar-tipo-inmueble',
