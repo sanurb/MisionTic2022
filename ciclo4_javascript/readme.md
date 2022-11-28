@@ -1,7 +1,5 @@
 # Real Estate Registry web app
-
-
-
+![demo-capture](https://user-images.githubusercontent.com/60886336/204200880-9a73449c-c9d1-4223-a266-3b404d7edc18.png)
 ## Introducction
 This is a code repository corresponding to the project for the validation of knowledge of cycle 4 in mision tic 2022. In this application we build a page for the registration of real estate, which consists of CRUD operations for the type of Real Estate and the Real Estate.
 
@@ -23,6 +21,10 @@ and the frontend
   npm i
   ng s
 ```
+
+### Demo
+
+![demoInmuebles](https://user-images.githubusercontent.com/60886336/204200809-09d834e2-93f6-4286-8d65-83661e534a45.gif)
 
 ### :sagittarius: Author
 > :man: Santiago Urbano Rivadeneira
