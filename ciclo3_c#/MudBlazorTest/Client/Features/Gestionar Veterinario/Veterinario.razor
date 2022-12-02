@@ -1,0 +1,97 @@
+﻿@page "/veterinario"
+@page "/veterinario/{id:int}"
+@using MudBlazorTest.Shared
+@inject IVeterinarioService VeterinarioService
+@inject MudBlazor.ISnackbar snackBar
+
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+
+@if (Id == null)
+{
+    <PageTitle>Agregar nuevo veterinario</PageTitle>
+    <br>
+    <h3>Nuevo Veterinario</h3>
+}
+else
+{
+    <PageTitle>Editar la info de @vet.Nombres</PageTitle>
+    <br>
+    <h3>Editar informacion @vet.Nombres</h3>
+}
+
+<EditForm Model="vet" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator/>
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Nombres*" @bind-Value="vet.Nombres"
+                         Variant="Variant.Outlined" For="@(() => vet.Nombres)"></MudTextField>
+                        <MudTextField Label="Apellidos*" @bind-Value="vet.Apellidos"
+                         Variant="Variant.Outlined" For="@(() => vet.Apellidos)"></MudTextField>
+                        <MudTextField Mask="@(new PatternMask("00000"))" Label="Tarjeta Profesional*" 
+                         @bind-Value="vet.TarjetaProfesional" Variant="Variant.Outlined" For="@(() => vet.TarjetaProfesional)"></MudTextField>
+                        <MudTextField Mask="@(new PatternMask("(+00) 000 0000000"))" Label="Telefono*" 
+                         @bind-Value="vet.Telefono" Variant="Variant.Outlined" For="@(() => vet.Telefono)"></MudTextField>
+                    </MudCardContent>
+                    <MudCardActions Class="pa-4 mt-4">
+                        <MudButton Class="mr-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info">@btnText</MudButton>
+                        @if (Id != null)
+                        {
+                            <MudButton OnClick="DeleteVeterinario" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Borrar</MudButton>
+                        }
+                    </MudCardActions>
+                </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    MudBlazorTest.Shared.Veterinario vet = new MudBlazorTest.Shared.Veterinario();
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Gestionar veterinarios", href: "gestionar-veterinarios", icon: Icons.Filled.ContentPasteSearch),
+        new BreadcrumbItem("Crear o Editar veterinario", href: null, disabled: true, icon: Icons.Material.Filled.Create)
+    };
+
+    string btnText = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Guardar Nuevo Veterinario" : "Actualizar Veterinario";
+    }
+
+    protected override async Task OnParametersSetAsync() // Para cargar la informacion
+    {
+        if(Id != null)
+        {
+            vet = await VeterinarioService.GetSingleVeterinario((int)Id);
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await VeterinarioService.CreateVeterinario(vet);
+            snackBar.Add("Veterinario Creado.", Severity.Success);
+        }
+        else
+        {
+            await VeterinarioService.UpdateVeterinario(vet);
+            snackBar.Add("Veterinario Actualizado.", Severity.Success);
+        }
+    }
+
+    async Task DeleteVeterinario()
+    {
+        await VeterinarioService.DeleteVeterinario(vet.PersonaId);
+        snackBar.Add("Veterinario Borrado.", Severity.Success);
+
+    }
+}

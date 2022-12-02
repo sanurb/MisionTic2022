@@ -1,0 +1,88 @@
+﻿@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+
+<MudThemeProvider Theme=MyCustomTheme/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <AuthorizeView>
+        <Authorized>
+            <MudAppBar Elevation="0">
+                    <MudTooltip Text="Abrir Menu Lateral">
+                        <MudIconButton Icon="@Icons.Rounded.Notes" Color="Color.Inherit" Edge="Edge.Start"
+                            OnClick="@((e) => DrawerToggle())" />
+                    </MudTooltip>
+                    <MudMenu AnchorOrigin="Origin.BottomRight" LockScroll="true" TransformOrigin="Origin.TopRight" Class="btn__right">
+                        <ActivatorContent>
+                            <MudAvatar Color="Color.Primary">@context.User.Identity.Name.ToUpper().FirstOrDefault()</MudAvatar>
+                        </ActivatorContent>
+                        <ChildContent>
+                            <div class="py-2" style="min-width: 220px">
+                                <MudMenuItem Link="/account" >
+                                     <div class="d-flex">
+                                        <MudIcon Class="mx-2" Icon="@Icons.Material.Filled.Person" />
+                                        <MudText>Cuenta</MudText>
+                                    </div>
+                                </MudMenuItem>
+                                <MudMenuItem Link="/">
+                                    <div class="d-flex">
+                                        <MudIcon Class="mx-2" Icon="@Icons.Material.Filled.Dashboard" />
+                                        <MudText>Dashboard</MudText>
+                                    </div>
+                                </MudMenuItem>
+                                <div class="mt-4 mx-4">
+                                    <MudButton Color="Color.Error" FullWidth="true" StartIcon="@Icons.Material.Filled.Logout"
+                                        Variant="Variant.Filled" OnClick="Logout">
+                                        Salir
+                                    </MudButton>
+                                </div>
+                            </div>
+                        </ChildContent>
+                    </MudMenu>
+            </MudAppBar>
+
+            <MudDrawer @bind-Open="@_drawerOpen">
+                <NavMenu/>
+            </MudDrawer>
+        </Authorized>
+    </AuthorizeView>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+@code {
+    bool _drawerOpen = true;
+
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Indigo.Default,
+            Secondary = Colors.Indigo.Default,
+            Tertiary = Colors.Teal.Darken3,
+            AppbarBackground = Colors.Shades.White,
+            AppbarText = "#6e6e6e",
+        },
+        PaletteDark = new Palette()
+        {
+            Primary = Colors.Blue.Lighten1
+        },
+    };
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        navManager.NavigateTo("/", true);
+    }
+}
+

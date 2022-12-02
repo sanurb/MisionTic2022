@@ -1,0 +1,60 @@
+﻿@page "/gestionar-mascotas"
+@inject IPerroService PerroService
+@inject NavigationManager NavigationManager
+
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+<br>
+<MudButton StartIcon="@Icons.Sharp.Add" OnClick="CreateNewPerro" Color="Color.Primary">Agregar nueva mascota</MudButton>
+<MudSimpleTable Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            @foreach (var h in headings)
+            {
+                <th>@h</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var perro in PerroService.Perros)
+            {
+                <tr>
+                    <td>@perro.PerroId</td>
+                    <td>@perro.Afiliacion</td>
+                    <td>@perro.Nombre</td>
+                    <td>@perro.Color</td>
+                    <td>@perro.Raza</td>
+                    <td>@perro.Sexo</td>
+                    <td>
+                        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="(() => ShowPerro(perro.PerroId))" Color="Color.Primary" />
+                    </td>
+                </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+@code {
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Gestionar mascotas",  href: null, disabled: true, icon: Icons.Filled.ContentPasteSearch),
+    };
+
+    string[] headings = { "ID", "Afiliacion", "Nombre", "Color", "Raza", "Sexo", "Acciones" };
+
+    // load initial data
+    protected override async Task OnInitializedAsync()
+    {
+        await PerroService.GetPerros();
+    }
+
+    void ShowPerro(int id)
+    {
+        NavigationManager.NavigateTo($"perro/{id}");
+    }
+
+    void CreateNewPerro()
+    {
+        NavigationManager.NavigateTo("/perro");
+    }
+}

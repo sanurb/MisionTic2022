@@ -1,0 +1,58 @@
+﻿@page "/gestionar-veterinarios"
+@inject IVeterinarioService VeterinarioService
+@inject NavigationManager NavigationManager
+
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+<br>
+<MudButton StartIcon="@Icons.Sharp.Add" OnClick="CreateNewVeterinario" Color="Color.Primary">Agregar Veterinario</MudButton>
+
+<MudSimpleTable Hover=true Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            @foreach (var h in headings)
+            {
+                <th>@h</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vet in VeterinarioService.Veterinarios)
+            {
+                <tr>
+                    <td>@vet.PersonaId</td>
+                    <td>@vet.Nombres</td>
+                    <td>@vet.Apellidos</td>
+                    <td>@vet.Telefono</td>
+                    <td>@vet.TarjetaProfesional</td>
+                    <td>
+                        <MudIconButton Icon="@Icons.Filled.Edit" OnClick="(() => ShowVeterinario(vet.PersonaId))" Color="Color.Primary" />
+                    </td>
+                </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+@code {
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Gestionar veterinarios",  href: null, disabled: true, icon: Icons.Filled.ContentPasteSearch),
+    };
+
+    string[] headings = { "ID", "Nombres", "Apellidos", "Telefono", "Tarjeta Profesional", "Acciones"};
+    // load initial data
+    protected override async Task OnInitializedAsync()
+    {
+        await VeterinarioService.GetVeterinarios();
+    }
+
+    void ShowVeterinario(int id)
+    {
+        NavigationManager.NavigateTo($"veterinario/{id}");
+    }
+
+    void CreateNewVeterinario()
+    {
+        NavigationManager.NavigateTo("/veterinario");
+    }
+}

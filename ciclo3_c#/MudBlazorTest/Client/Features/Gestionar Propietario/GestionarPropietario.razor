@@ -1,0 +1,76 @@
+﻿@page "/gestionar-propietarios"
+@inject IPropietarioService PropietarioService
+@inject NavigationManager NavigationManager
+
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+<br>
+<MudButton StartIcon="@Icons.Sharp.Add" OnClick="CreateNewPropietario" Color="Color.Primary">Agregar nueva propietario</MudButton>
+<br>
+<MudTable Items="@PropietarioService.Propietarios" Filter="new Func<MudBlazorTest.Shared.Propietario,bool>(SearchByNombresApellidos)" Dense="true" Hover="true" Striped="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Propietarios</MudText>
+        <MudSpacer />
+        @*TODO: Implementar Busqueda por Nombres y Apellidos*@
+        <MudTextField @bind-Value="searchTerm" Immediate="true" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<MudBlazorTest.Shared.Propietario, object>(x=>x.PersonaId)">Id</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MudBlazorTest.Shared.Propietario, object>(x=>x.Nombres)">Nombres</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MudBlazorTest.Shared.Propietario, object>(x=>x.Apellidos)">Apellidos</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MudBlazorTest.Shared.Propietario, object>(x=>x.Direccion)">Direccion</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MudBlazorTest.Shared.Propietario, object>(x=>x.Telefono)">Telefono</MudTableSortLabel></MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.PersonaId</MudTd>
+        <MudTd>@context.Nombres</MudTd>
+        <MudTd>@context.Apellidos</MudTd>
+        <MudTd>@context.Direccion</MudTd>
+        <MudTd>@context.Telefono</MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Filled.Edit" OnClick="(() => ShowPropietario(context.PersonaId))" Color="Color.Primary" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{50, 100}" RowsPerPageString="Filas por página" InfoFormat="{first_item}-{last_item} de {all_items}" />
+    </PagerContent>
+</MudTable>
+
+@code {
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Gestionar propietarios",  href: null, disabled: true, icon: Icons.Filled.ContentPasteSearch),
+    };
+
+    private string searchTerm = "";
+
+    // load initial data
+    protected override async Task OnInitializedAsync()
+    {
+        await PropietarioService.GetPropietarios();
+    }
+
+    void ShowPropietario(int id)
+    {
+        NavigationManager.NavigateTo($"propietario/{id}");
+    }
+
+    void CreateNewPropietario()
+    {
+        NavigationManager.NavigateTo("/propietario");
+    }
+
+    private bool SearchByNombresApellidos(MudBlazorTest.Shared.Propietario item)
+    {
+        if (item.Nombres.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) | item.Apellidos.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return true;
+        }
+        return false;
+    }
+
+}
+
+

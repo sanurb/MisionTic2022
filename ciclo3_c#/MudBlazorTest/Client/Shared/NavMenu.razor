@@ -1,0 +1,20 @@
+﻿<AuthorizeView Roles="Administrator,User">
+    <Authorized>
+        <MudNavMenu>
+                 <div class="sidebar-header d-flex align-items-center px-3 py-4">
+                     <MudAvatar Color="Color.Primary">@context.User.Identity.Name.ToUpper().FirstOrDefault()</MudAvatar>
+                    <h5 class="fs-6 mb-0" style="margin-left: 8px">@context.User.Identity.Name</h5>
+                 </div>
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">Inicio</MudText>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+            
+         
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">Pacientes</MudText>
+                <MudNavLink Href="/gestionar-propietarios" Icon="@Icons.Filled.Person" Match="NavLinkMatch.Prefix">Gestionar Propietarios</MudNavLink>
+                <MudNavLink Href="/gestionar-mascotas"  Icon="@Icons.Filled.Pets" Match="NavLinkMatch.Prefix">Gestionar Mascotas</MudNavLink>
+                <MudNavLink Href="/gestionar-visitas"  Icon="@Icons.Filled.HomeWork" Match="NavLinkMatch.Prefix">Gestionar Visitas</MudNavLink>
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="ml-4 my-3">Personal</MudText>
+                <MudNavLink Href="/gestionar-veterinarios" Icon="@Icons.Filled.LocalHospital" Match="NavLinkMatch.Prefix">Gestionar Veterinarios</MudNavLink>
+        </MudNavMenu>
+    </Authorized>
+</AuthorizeView>

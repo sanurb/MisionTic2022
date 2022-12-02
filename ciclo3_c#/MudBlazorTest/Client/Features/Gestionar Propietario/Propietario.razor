@@ -1,0 +1,111 @@
+﻿@page "/propietario"
+@page "/propietario/{id:int}"
+@using System.Net.Http.Headers
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager navManager
+@inject HttpClient Http
+@inject IPropietarioService PropietarioService
+@inject MudBlazor.ISnackbar snackBar
+
+
+<MudBreadcrumbs Items="_items" Separator=">"></MudBreadcrumbs>
+
+@if (Id == null)
+{
+    <PageTitle>Agregar nuevo Propietario</PageTitle>
+    <br>
+    <h3>Nuevo Propietario</h3>
+}
+else
+{
+    <PageTitle>Editar la info de @propietario.Nombres</PageTitle>
+    <br>
+    <h3>Editar informacion @propietario.Nombres</h3>
+}
+
+<EditForm Model="propietario" OnSubmit="HandleSubmit">
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Nombres*" @bind-Value="propietario.Nombres"
+                     Variant="Variant.Outlined" For="@(() => propietario.Nombres)"></MudTextField>
+                     <MudTextField Label="Apellidos*" @bind-Value="propietario.Apellidos"
+                     Variant="Variant.Outlined" For="@(() => propietario.Apellidos)"></MudTextField>
+                     <MudTextField Label="Direccion*" @bind-Value="propietario.Direccion"
+                     Variant="Variant.Outlined" For="@(() => propietario.Direccion)"></MudTextField>
+                     <MudTextField Mask="@(new PatternMask("(+00) 000 0000000"))" Label="Numero de Telefono*" 
+                     @bind-Value="propietario.Telefono" Variant="Variant.Outlined"
+                     For="@(() => propietario.Telefono)"></MudTextField>
+                </MudCardContent>
+                <MudCardActions Class="pa-4 mt-4">
+                    <MudButton Class="mr-4" ButtonType="ButtonType.Submit" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Medium">@btnText</MudButton>
+                    @if (Id != null)
+                    {    
+                    <MudButton OnClick="DeletePropietario" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Borrar</MudButton>
+                    }
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    MudBlazorTest.Shared.Propietario propietario = new MudBlazorTest.Shared.Propietario();
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+        new BreadcrumbItem("Gestionar propietario", href: "gestionar-propietarios", icon: Icons.Filled.ContentPasteSearch),
+        new BreadcrumbItem("Crear o Editar propietario", href: null, disabled: true, icon: Icons.Material.Filled.Create)
+    };
+
+    string btnText = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Guardar Nuevo Propietario" : "Actualizar Propietario";
+
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+        var token = await customAuthStateProvider.GetToken();
+        if (!string.IsNullOrWhiteSpace(token))
+        {
+            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+        }
+        else
+            navManager.NavigateTo("/login");
+    }
+
+    protected override async Task OnParametersSetAsync() // Para cargar la informacion
+    {
+        if(Id != null)
+        {
+            propietario = await PropietarioService.GetSinglePropietario((int)Id);
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await PropietarioService.CreatePropietario(propietario);
+            snackBar.Add("Propietario Creado.", Severity.Success);
+        }
+        else
+        {
+            await PropietarioService.UpdatePropietario(propietario);
+            snackBar.Add("Propietario Actualizado.", Severity.Success);
+        }
+    }
+
+    async Task DeletePropietario()
+    {
+        await PropietarioService.DeletePropietario(propietario.PersonaId);
+        snackBar.Add("Propietario Borrado.", Severity.Success);
+
+    }
+
+
+}
