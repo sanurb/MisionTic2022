@@ -3,6 +3,8 @@
 ## Introducction
 This is a code repository corresponding to the knowledge validation project of cycle 3 in the tic mission 2022. In this application we built a page for the registration of dog patients for a veterinarian.
 
+![demo-cap](https://user-images.githubusercontent.com/60886336/205205988-7dbb8d83-f32a-45ab-bcff-311a1f7b39d2.png)
+
 ### Build With 🛠️
 *  [.NET](https://dotnet.microsoft.com/en-us/)
 *  [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor)
